@@ -34,7 +34,6 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-
 Route::fallback(function () {
     dd('Tomar chaoa puron korte parbona.....');
 });

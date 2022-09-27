@@ -31,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
+        echo '3 no file';
+
         Schema::dropIfExists('failed_jobs');
     }
 };
