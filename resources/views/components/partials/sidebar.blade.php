@@ -37,6 +37,12 @@
                     Users
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('categories.index') }}">
+                    <span data-feather="layers"></span>
+                    Categories
+                </a>
+            </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

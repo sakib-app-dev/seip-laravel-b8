@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,22 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+
+Route::get('/categories/{id}/delete', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+
+
+
+
+
+
+
 
 Route::get('/profile', function () {
     return view('users.profile');
