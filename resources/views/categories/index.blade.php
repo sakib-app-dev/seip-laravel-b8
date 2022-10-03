@@ -10,18 +10,16 @@
                     <button type="button" class="btn btn-sm btn-outline-secondary">Export PDF</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Export Excel</button>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-primary">
-                    <span data-feather="plus"></span>
-                    Add New
-                </button>
+                <a href="{{ route('categories.create') }}">
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                        <span data-feather="plus"></span>
+                        Add New
+                    </button>
+                </a>
             </div>
         </div>
 
-        @if(session('message'))
-        <p class="text-success">
-            {{ session('message') }}
-        </p>
-        @endif
+        <x-forms.message />
 
         <table class="table">
             <thead>
@@ -38,12 +36,18 @@
                     <td>{{ $category->name }}</td>
                     <td>
                         <a class="btn btn-sm btn-outline-info" href="{{ route('categories.show', $category->id) }}">Show</a>
-                        | Edit | 
 
-                        <a class="btn btn-sm btn-outline-danger" href="{{ route('categories.destroy', $category->id) }}">Delete</a>
+                        <a class="btn btn-sm btn-outline-info" href="{{ route('categories.edit', $category->id) }}">Edit</a>
+
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+
 </x-master>
