@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Image;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         $categories = Category::all();
-
-        // return view('categories.index', [
-        //     'categories' => $categories
-        // ]);
-
         return view('categories.index', compact('categories'));
     }
 
@@ -28,7 +25,8 @@ class CategoryController extends Controller
     {
         $data = [
             'name' => $request->name,
-            'is_active' => $request->is_active ? true : false
+            'is_active' => $request->is_active ? true : false,
+            'image' =>  $this->uploadImage($request->file('image'))
         ];
 
         Category::create($data);
@@ -38,22 +36,21 @@ class CategoryController extends Controller
             ->withMessage('Created Successfully!');
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
-
         return view('categories.edit', compact('category'));
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request,Category $category)
     {
-
-        $category = Category::find($id);
-
         $data = [
             'name' => $request->name,
-            'is_active' => $request->is_active ? true : false
+            'is_active' => $request->is_active ? true : false,
         ];
+
+        if($request->hasFile('image')){
+            $data['image'] = $this->uploadImage($request->file('image'));
+        }
 
         $category->update($data);
 
@@ -62,26 +59,60 @@ class CategoryController extends Controller
             ->withMessage('Updated Successfully!');
     }
 
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = Category::find($id);
-
         return view('categories.show', compact('category'));
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::find($id);
         $category->delete();
-
-        // Session::flash('message', 'Deleted Successfully!');
-
-        // return redirect()
-        //       ->route('categories.index')
-        //       ->with('message', 'Deleted Successfully!');
-
         return redirect()
             ->route('categories.index')
             ->withMessage('Deleted Successfully!');
+    }
+
+    public function trash()
+    {
+        $categories = Category::onlyTrashed()->get();
+        return view('categories.trash', compact('categories'));
+    }
+
+    public function restore($id)
+    {
+        $category = Category::onlyTrashed()->find($id);
+        $category->restore();
+
+        return redirect()
+            ->route('categories.trash')
+            ->withMessage('Restored Successfully!');
+    } 
+
+    public function delete($id)
+    {
+        $category = Category::onlyTrashed()->find($id);
+        $category->forceDelete();
+
+        return redirect()
+            ->route('categories.trash')
+            ->withMessage('Deleted Successfully!');
+    } 
+
+    public function downloadPdf()
+    {
+        $categories = Category::all();
+        $pdf = Pdf::loadView('categories.pdf', compact('categories'));
+        return $pdf->download('category-list.pdf');
+    }
+
+    public function uploadImage($file){
+        $fileName = date('y-m-d').'-'.time().'.'.$file ->getClientOriginalExtension();
+        // $file->move(storage_path('app/public/categories'), $fileName);
+
+        Image::make($file)
+                ->resize(200, 200)
+                ->save(storage_path() . '/app/public/categories/' . $fileName);
+
+        return $fileName;
     }
 }

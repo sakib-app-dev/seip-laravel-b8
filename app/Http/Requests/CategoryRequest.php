@@ -23,8 +23,15 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $imageValidationRules = 'mimes:png,jpg,jpeg,gif';
+
+        if($this->isMethod('post')){
+            $imageValidationRules  = 'required|'.$imageValidationRules;
+        }
+
         return [
-            'name' => 'required|unique:categories|max:255|min:3'
+            'name' => 'required|max:255|min:3|unique:categories,id,'.$this->category?->id,
+            'image' => $imageValidationRules
         ];
     }
 

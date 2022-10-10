@@ -16,21 +16,27 @@ Route::get('/dashboard', function () {
 
 
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-
-
-Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-
-Route::patch('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+// Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+// Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+// Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+// Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+// Route::patch('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+// Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+// Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 
-Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('category-trash', [CategoryController::class, 'trash'])->name('categories.trash');
 
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::patch('category-trash/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
+Route::delete('category-trash/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
+Route::get('categories/pdf', [CategoryController::class, 'downloadPdf'])->name('categories.pdf');
+
+Route::resource('categories', CategoryController::class);
+
+
+
+
+
 
 
 

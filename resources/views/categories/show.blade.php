@@ -20,4 +20,5 @@
 
     <h1>Title: {{ $category->name }}</h1>
     <p>Is Active?: {{ $category->is_active ? 'Yes' : 'No' }} </p>
+    <img src="{{ asset('storage/categories/'.$category->image) }}" height="250" />
 </x-master>

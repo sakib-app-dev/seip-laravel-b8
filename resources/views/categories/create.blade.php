@@ -1,7 +1,7 @@
 <x-master>
     <x-slot:title>
         Category Details
-    </x-slot:title>
+    </x-slot>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Category Create</h1>
@@ -20,10 +20,12 @@
 
     <x-forms.errors />
 
-    <form action="{{ route('categories.store') }}" method="post">
+    <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
-        <x-forms.input type="text" name="name" label="Name" class="bg-info" required placeholder="Enter name" />
+        <x-forms.input type="text" name="name" label="Name" :value="old('name')" required placeholder="Enter name" />
+
+        <x-forms.input type="file" name="image" label="Image"/>
 
         {{-- select, checkbox, radio, texarea --}}
 

@@ -20,27 +20,16 @@
 
     <x-forms.errors />
 
-    <form action="{{ route('categories.update', $category->id) }}" method="post">
+    <form action="{{ route('categories.update', $category->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
-        <div class="mb-3">
-            <label for="nameInput" class="form-label">Title</label>
-          
-            <input 
-            name="name" 
-            type="text" 
-            class="form-control" 
-            id="nameInput" 
-            value="{{ old('name', $category->name) }}"
-            >
+        <x-forms.input type="text" name="name" label="Name" :value="old('name', $category->name)" required placeholder="Enter name" />
 
-            @error('name')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
-            
-        </div>
-        
+        <img src="{{ asset('storage/categories/'.$category->image) }}" height="250" />
+
+        <x-forms.input type="file" name="image" label="Image"/>
+
         <div class="mb-3 form-check">
             <input 
             name="is_active" 
