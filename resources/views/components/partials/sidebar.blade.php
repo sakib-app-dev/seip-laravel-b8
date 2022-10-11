@@ -8,39 +8,37 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index') }}">
+                    <span data-feather="users"></span>
+                    Users
+                </a>
+            </li>
+  
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('categories.index') }}">
+                    <span data-feather="layers"></span>
+                    Categories
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('products.index') }}">
+                    <span data-feather="shopping-cart"></span>
+                    Products
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file"></span>
                     Orders
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="shopping-cart"></span>
-                    Products
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="users"></span>
-                    Customers
-                </a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="bar-chart-2"></span>
                     Reports
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('users.index') }}">
-                    <span data-feather="layers"></span>
-                    Users
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('categories.index') }}">
-                    <span data-feather="layers"></span>
-                    Categories
                 </a>
             </li>
         </ul>
