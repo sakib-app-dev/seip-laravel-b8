@@ -45,6 +45,7 @@ class RegisteredUserController extends Controller
     
             DB::beginTransaction();
             $user = User::create([
+                'role_id' => 3,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         echo 'database seeder run method';
 
         $this->call([
+            RolesSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class
         ]);

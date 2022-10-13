@@ -13,8 +13,14 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->paginate(10);
-        return view('products.index', compact('products'));
+        $paginatePerPage = 20;
+        $serialNo = 1;
+        if($pageNumber = request('page')){
+            $serialNo = $paginatePerPage * ($pageNumber-1) + 1;
+        }
+        
+        $products = Product::with('category')->latest()->paginate($paginatePerPage);
+        return view('products.index', compact('products', 'serialNo'));
     }
 
     public function create()
@@ -27,8 +33,10 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $data = [
-            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'title' => $request->title,
             'is_active' => $request->is_active ? true : false,
+            'description' => $request->description,
             'image' =>  $this->uploadImage($request->file('image'))
         ];
 
@@ -41,14 +49,18 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('products.edit', compact('Product'));
+        $categories = Category::pluck('name', 'id')->toArray();
+
+        return view('products.edit', compact('product', 'categories'));
     }
 
     public function update(ProductRequest $request,Product $product)
     {
         $data = [
-            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'title' => $request->title,
             'is_active' => $request->is_active ? true : false,
+            'description' => $request->description,
         ];
 
         if($request->hasFile('image')){

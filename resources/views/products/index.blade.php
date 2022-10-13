@@ -31,14 +31,16 @@
                 <tr>
                     <th>SL#</th>
                     <th>Title</th>
+                    <th>Category</th>
                     <th width="180">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($products as $product)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $serialNo ++ }}</td>
                     <td>{{ $product->title }}</td>
+                    <td>{{ $product->category?->name }}</td>
                     <td class="d-flex">
                         <a class="btn btn-sm btn-outline-info" href="{{ route('products.show', $product->id) }}">Show</a>
 

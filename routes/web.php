@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function(){
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/{user}', [UserController::class, 'show'])->name('show');
+        Route::get('/{user}/change-role', [UserController::class, 'changeRole'])->name('change_role');
+        Route::patch('/{user}/change-role', [UserController::class, 'updateRole'])->name('update_role');
     });
 });
 
