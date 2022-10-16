@@ -33,6 +33,10 @@
 
         <x-forms.textarea name="description" :value="old('description', $product->description)" label="Description" />
 
+
+        <x-forms.checkbox name="colors[]" :checklist="$colors" :checkedItems="$selectedColors" label="Colors"/>
+
+
         <div class="mb-3 form-check">
             <input 
             name="is_active" 

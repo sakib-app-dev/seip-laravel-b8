@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -26,12 +27,14 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::pluck('name', 'id')->toArray();
+        $colors = Color::pluck('title', 'id')->toArray();
 
-        return view('products.create', compact('categories'));
+        return view('products.create', compact('categories', 'colors'));
     }
 
     public function store(ProductRequest $request)
     {
+        
         $data = [
             'category_id' => $request->category_id,
             'title' => $request->title,
@@ -40,7 +43,9 @@ class ProductController extends Controller
             'image' =>  $this->uploadImage($request->file('image'))
         ];
 
-        Product::create($data);
+        $product = Product::create($data);
+
+        $product->colors()->attach($request->colors);
 
         return redirect()
             ->route('products.index')
@@ -50,8 +55,11 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::pluck('name', 'id')->toArray();
+        $colors = Color::pluck('title', 'id')->toArray();
 
-        return view('products.edit', compact('product', 'categories'));
+        $selectedColors = $product->colors()->pluck('id')->toArray(); 
+
+        return view('products.edit', compact('product', 'categories', 'colors', 'selectedColors'));
     }
 
     public function update(ProductRequest $request,Product $product)
@@ -68,6 +76,8 @@ class ProductController extends Controller
         }
 
         $product->update($data);
+
+        $product->colors()->sync($request->colors);
 
         return redirect()
             ->route('products.index')
@@ -106,6 +116,7 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::onlyTrashed()->find($id);
+        $product->colors()->detach();
         $product->forceDelete();
 
         return redirect()

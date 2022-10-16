@@ -15,6 +15,13 @@
             </li>
   
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('colors.index') }}">
+                    <span data-feather="layers"></span>
+                    Colors
+                </a>
+            </li>
+            
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('categories.index') }}">
                     <span data-feather="layers"></span>
                     Categories

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,10 +38,18 @@ Route::middleware('auth')->group(function(){
     
     Route::resource('categories', CategoryController::class);
 
-    Route::get('products-trash', [CategoryController::class, 'trash'])->name('products.trash');
-    Route::patch('products-trash/{id}', [CategoryController::class, 'restore'])->name('products.restore');
-    Route::delete('products-trash/{id}', [CategoryController::class, 'delete'])->name('products.delete');
-    Route::get('products/pdf', [CategoryController::class, 'downloadPdf'])->name('products.pdf');
+    Route::get('colors-trash', [ColorController::class, 'trash'])->name('colors.trash');
+    Route::patch('colors-trash/{id}', [ColorController::class, 'restore'])->name('colors.restore');
+    Route::delete('colors-trash/{id}', [ColorController::class, 'delete'])->name('colors.delete');
+    Route::get('colors/pdf', [ColorController::class, 'downloadPdf'])->name('colors.pdf');
+    
+    Route::resource('colors', ColorController::class);
+
+
+    Route::get('products-trash', [ProductController::class, 'trash'])->name('products.trash');
+    Route::patch('products-trash/{id}', [ProductController::class, 'restore'])->name('products.restore');
+    Route::delete('products-trash/{id}', [ProductController::class, 'delete'])->name('products.delete');
+    Route::get('products/pdf', [ProductController::class, 'downloadPdf'])->name('products.pdf');
     Route::resource('products', ProductController::class);
 
     Route::get('/profile', function () {
