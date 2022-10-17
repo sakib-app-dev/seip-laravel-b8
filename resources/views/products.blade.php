@@ -1,12 +1,11 @@
 <x-frontend.master>
 
-    {{-- <x-frontend.partials.carousel /> --}}
 
     <div class="container marketing">
         <br /><br /><br /><br />
         <!-- Three columns of text below the carousel -->
         <div class="row" data-masonry='{"percentPosition": true }'>
-            @foreach($products as $product)
+            @forelse($category->products as $product)
             <div class="col-lg-4 mb-2">
                 <div class="card">
                     <div class="card-header">
@@ -22,12 +21,14 @@
                     </div>
                 </div>
             </div><!-- /.col-lg-4 -->
-            @endforeach
+            @empty
+                <h1>No data found</h1>
+            @endforelse
         </div><!-- /.row -->
-        {{ $products->links() }}
+
     </div>
     <!-- /END THE FEATURETTES -->
     @push('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
     @endpush
 </x-frontend.master>

@@ -33,20 +33,9 @@
 
         <x-forms.textarea name="description" :value="old('description', $product->description)" label="Description" />
 
+        <x-forms.checkbox name="colors[]" id="color" :checklist="$colors" :checkedItems="$selectedColors" label="Colors"/>
 
-        <x-forms.checkbox name="colors[]" :checklist="$colors" :checkedItems="$selectedColors" label="Colors"/>
-
-
-        <div class="mb-3 form-check">
-            <input 
-            name="is_active" 
-            type="checkbox" 
-            class="form-check-input" 
-            id="isActiveInput"
-            @if($product->is_active) checked @endif
-            >
-            <label class="form-check-label" for="isActiveInput">Is Active ?</label>
-        </div>
+        <x-forms.checkbox name="is_active" :checklist="[1 =>'Is Active']" :checkedItems="[$product->is_active]" label="Colors"/>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'welcome']);
+Route::get('/categories/{category}/product', [WelcomeController::class, 'productList'])->name('frontend.products.index');
+Route::get('/products/{product}', [WelcomeController::class, 'productDetails'])->name('frontend.products.show');
 
 require __DIR__.'/auth.php';
 
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->prefix('dashboard')->group(function(){
 
       
     Route::get('/home', function () {
@@ -42,9 +43,8 @@ Route::middleware('auth')->group(function(){
     Route::patch('colors-trash/{id}', [ColorController::class, 'restore'])->name('colors.restore');
     Route::delete('colors-trash/{id}', [ColorController::class, 'delete'])->name('colors.delete');
     Route::get('colors/pdf', [ColorController::class, 'downloadPdf'])->name('colors.pdf');
-    
-    Route::resource('colors', ColorController::class);
 
+    Route::resource('colors', ColorController::class);
 
     Route::get('products-trash', [ProductController::class, 'trash'])->name('products.trash');
     Route::patch('products-trash/{id}', [ProductController::class, 'restore'])->name('products.restore');

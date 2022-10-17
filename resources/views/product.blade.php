@@ -1,30 +1,34 @@
 <x-frontend.master>
 
-    {{-- <x-frontend.partials.carousel /> --}}
 
     <div class="container marketing">
         <br /><br /><br /><br />
         <!-- Three columns of text below the carousel -->
-        <div class="row" data-masonry='{"percentPosition": true }'>
-            @foreach($products as $product)
+        <div class="row">
             <div class="col-lg-4 mb-2">
                 <div class="card">
                     <div class="card-header">
-                        <img src="{{ asset('storage/products/'.$product->image) }}" height="250" />
+                        <img src="{{ asset('storage/products/'.$product->image) }}" height="350" />
+                    </div>
+                </div>
+            </div><!-- /.col-lg-4 -->
+
+            <div class="col-lg-8 mb-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{ $product->title }}</h4>
                     </div>
                     <div class="card-body">
-                        <h4>{{ Str::limit($product->title, 30) }}</h4>
-                        <p>{{ Str::limit($product->description, 80) }}</p>
+                        <p>Price: {{ $product->price }}</p>
+                        <p>Description: {{ $product->description }}</p>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-sm btn-info" href="{{ route('frontend.products.show', $product->id) }}">View details &raquo;</a>
                         <a class="btn btn-sm btn-primary" href="#">Add to Cart</a>
                     </div>
                 </div>
             </div><!-- /.col-lg-4 -->
-            @endforeach
         </div><!-- /.row -->
-        {{ $products->links() }}
+
     </div>
     <!-- /END THE FEATURETTES -->
     @push('script')

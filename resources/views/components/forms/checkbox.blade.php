@@ -1,4 +1,4 @@
-@props(['name', 'label' => '', 'checkedItems' => [], 'checklist' => []])
+@props(['name', 'label' => '', 'checkedItems' => [], 'checklist' => [], 'id' => null])
 
 <div class="mb-3">
     @if($label)
@@ -11,14 +11,14 @@
         <input 
             name="{{ $name }}" 
             type="checkbox" 
-            id="{{$key}}Input"
+            id="{{$key.$id}}Input"
             value="{{ $key }}"
             @if(in_array($key, $checkedItems))
                 checked
             @endif
             {{ $attributes->merge(['class' => 'form-check-input']) }}
         >
-        <label class="form-check-label" for="{{$key}}Input">{{ $value }}</label>
+        <label class="form-check-label" for="{{$key.$id}}Input">{{ $value }}</label>
     </div>
 @endforeach
 
