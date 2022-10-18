@@ -27,14 +27,6 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-             <!-- Present Address -->
-             <div>
-                <x-input-label for="present_address" :value="__('Present Address')" />
-                <x-text-input id="text" class="block mt-1 w-full" type="email" name="present_address" :value="old('present_address')" required autofocus />
-
-                <x-input-error :messages="$errors->get('present_address')" class="mt-2" />
-            </div>
-
             <!-- Password -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />

@@ -1,6 +1,6 @@
 <x-frontend.master>
 
-    {{-- <x-frontend.partials.carousel /> --}}
+    <x-frontend.partials.carousel :carousels="$carousels" />
 
     <div class="container marketing">
         <br /><br /><br /><br />

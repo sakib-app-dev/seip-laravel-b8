@@ -27,6 +27,12 @@
                     Categories
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('carousels.index') }}">
+                    <span data-feather="layers"></span>
+                    Carousels
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('products.index') }}">

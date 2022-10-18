@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
@@ -22,21 +23,25 @@ Route::get('/', [WelcomeController::class, 'welcome']);
 Route::get('/categories/{category}/product', [WelcomeController::class, 'productList'])->name('frontend.products.index');
 Route::get('/products/{product}', [WelcomeController::class, 'productDetails'])->name('frontend.products.show');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
-Route::middleware('auth')->prefix('dashboard')->group(function(){
+Route::middleware('auth')->prefix('dashboard')->group(function () {
 
-      
+
     Route::get('/home', function () {
         return view('home');
     });
-    
+
+    Route::get('carousels-trash', [CarouselController::class, 'trash'])->name('carousels.trash');
+    Route::patch('carousels-trash/{id}', [CarouselController::class, 'restore'])->name('carousels.restore');
+    Route::delete('carousels-trash/{id}', [CarouselController::class, 'delete'])->name('carousels.delete');
+    Route::resource('carousels', CarouselController::class);
     Route::get('category-trash', [CategoryController::class, 'trash'])->name('categories.trash');
     Route::patch('category-trash/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
     Route::delete('category-trash/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
     Route::get('categories/pdf', [CategoryController::class, 'downloadPdf'])->name('categories.pdf');
-    
+
     Route::resource('categories', CategoryController::class);
 
     Route::get('colors-trash', [ColorController::class, 'trash'])->name('colors.trash');
@@ -55,7 +60,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function(){
     Route::get('/profile', function () {
         return view('users.profile');
     });
-    
+
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/{user}', [UserController::class, 'show'])->name('show');

@@ -21,4 +21,5 @@ class FrontendComposer
             'categories' => $categories
         ]);
     }
+   
 }
