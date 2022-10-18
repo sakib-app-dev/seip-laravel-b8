@@ -22,4 +22,9 @@ class Product extends Model
         return $this->belongsToMany(Color::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
 }

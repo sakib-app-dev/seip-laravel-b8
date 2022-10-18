@@ -3,6 +3,7 @@
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -28,6 +29,7 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
 
+    Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('products.comments.store');
 
     Route::get('/home', function () {
         return view('home');

@@ -4,6 +4,18 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle show" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Notifications
+            </a>
+            <ul class="dropdown-menu show" aria-labelledby="navbarDropdown" data-bs-popper="none">
+                @foreach (Auth::user()->unreadNotifications as $notification)
+                    <li><a class="dropdown-item" href="{{ $notification->data['action_url'] }}">{{ $notification->data['message'] }}</a></li>
+                @endforeach
+            </ul>
+        </li>
+    </ul>
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
             <form method="POST" action="{{ route('logout') }}">

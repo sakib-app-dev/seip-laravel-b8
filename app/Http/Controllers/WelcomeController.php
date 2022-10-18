@@ -18,7 +18,8 @@ class WelcomeController extends Controller
         }else{
             $products = Product::latest()->paginate(15);
         }
-        $carousels=Carousel::latest()->get();
+
+        $carousels = Carousel::latest()->get();
         return view('welcome', compact('products','carousels'));
     }
 

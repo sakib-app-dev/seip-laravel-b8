@@ -1,6 +1,4 @@
 <x-frontend.master>
-
-
     <div class="container marketing">
         <br /><br /><br /><br />
         <!-- Three columns of text below the carousel -->
@@ -28,10 +26,34 @@
                 </div>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
-
+        <section>
+            @auth
+            <form action="{{ route('products.comments.store', $product->id) }}" method="post">
+                @csrf
+                <x-forms.textarea name="body" label="Your Comment" />
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+            @else
+            <a href="{{ url('/login') }}"><button class="btn btn-info">Login to comment</button></a>
+            @endauth
+        </section>
+        <hr />
+        <section>
+            <h2>Comments</h2>
+            <ul>
+                @foreach($product->comments as $comment)
+                <li>
+                    <div>
+                        <h3>
+                            {{ $comment->commentedBy->name }} <small><mark>{{ $comment->created_at->diffForHumans() }}</mark></small>
+                        </h3>
+                        <p>{{ $comment->body }}</p>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+        </section>
     </div>
     <!-- /END THE FEATURETTES -->
-    @push('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
-    @endpush
+
 </x-frontend.master>

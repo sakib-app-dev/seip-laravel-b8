@@ -4,10 +4,8 @@
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
     <div class="carousel-indicators">
         @for ($i = 0; $i < count($carousels); $i++)
-            
-
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$i}}" 
-                @if ($i == 0)class="active" aria-current="true" @endif aria-label="Slide {{$i+1}}"></button>
+            @if ($i == 0)class="active" aria-current="true" @endif aria-label="Slide {{$i+1}}"></button>
         @endfor
 
     </div>
