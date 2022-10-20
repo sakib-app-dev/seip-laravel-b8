@@ -40,7 +40,7 @@ class ProductController extends Controller
             'title' => $request->title,
             'is_active' => $request->is_active ? true : false,
             'description' => $request->description,
-            'image' =>  $this->uploadImage($request->file('image'))
+            // 'image' =>  $this->uploadImage($request->file('image'))
         ];
 
         $product = Product::create($data);

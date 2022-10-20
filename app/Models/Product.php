@@ -26,5 +26,9 @@ class Product extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+    public function images()
+    {
+        return $this->morphMany(image::class,'imageable');
+    }
 
 }
